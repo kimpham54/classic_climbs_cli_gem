@@ -20,11 +20,13 @@ def self.create_climb(climbs_array)
 
 end
 
-
+ def self.find(id)
+    self.all[id-1]
+  end
 
 
 def self.all
-	puts "Hello"
+	# puts "Hello"
 	@@all
 		# 1.Tachycardia - 5.9 - LOCATION1
 		# 2.Playin' Hooky - 5.9 - LOCATION1
