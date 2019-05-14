@@ -53,7 +53,12 @@ url_array.each do |url_item|
 	climb[:grade] = doc.search("h2[class='inline-block mr-2']/span.rateYDS/text()").text.strip
 	climb[:type] =  doc.search("table.description-details//tr[1]/td[2]/text()").text.strip
 	climb[:url] = doc.xpath('//link[@rel="canonical"]/@href').text.strip
-	climb[:description] = doc.xpath("//h2[@class='mt-2'][contains(text(),'Description')]/following-sibling::div[@class='fr-view']").text.strip.gsub("      ", " ").gsub("    ", " ")
+	if doc.xpath("//h2[@class='mt-2'][contains(text(),'Description')]/following-sibling::div[@class='fr-view']").text == ""
+		climb[:description] = "No description available."
+	else
+		climb[:description] = doc.xpath("//h2[@class='mt-2'][contains(text(),'Description')]/following-sibling::div[@class='fr-view']").text.strip.gsub("      ", " ").gsub("    ", " ")
+	end
+	# also can just leave description out completely, but need to account for print_climb
 	# /text()
 	# location
 	# refactor type to find next td sibling 

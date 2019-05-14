@@ -15,7 +15,9 @@ def list_climbs
 	@list = ClassicClimbs::Climb.all
 	if @list.empty? == true
 	# ClassicClimbs::Climb.reset
-	ClassicClimbs::Scraper.scrape_sportclimbs("https://www.mountainproject.com/area/classics?type=sport")
+	sporturl = "https://www.mountainproject.com/area/classics?type=sport"
+	# change url if you need to someday
+	ClassicClimbs::Scraper.scrape_sportclimbs(sporturl)
 	ClassicClimbs::Climb.create_climb(ClassicClimbs::Scraper.all)
 	@list.each.with_index(1) do |item, index|
 		puts("#{index}. #{item.name} - #{item.grade}")
