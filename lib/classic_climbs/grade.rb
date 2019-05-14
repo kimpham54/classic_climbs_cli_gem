@@ -1,0 +1,2 @@
+class ClassicClimbs::Grade
+end
