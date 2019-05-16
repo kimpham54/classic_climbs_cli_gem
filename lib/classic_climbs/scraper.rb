@@ -39,20 +39,10 @@ url_array.each do |url_item|
 	climb[:url] = doc.xpath('//link[@rel="canonical"]/@href').text.strip
 	climb[:description] = doc.xpath("//h2[@class='mt-2'][contains(text(),'Description')]/following-sibling::div[@class='fr-view']").text.strip.gsub("      ", " ").gsub("    ", " ")
 
-	if climb[:name] == ""
-		climb[:name] = "No name available."
-	end
-	if climb[:grade] == ""
-		climb[:grade] = "No grade available."
-	end
-	if climb[:type] == ""
-		climb[:type] = "No type available."
-	end
-	if climb[:url] == ""
-		climb[:url] = "No url available."
-	end
-	if climb[:description] == ""
-		climb[:description] = "No description available."
+	climb.each do |key, value|
+		if climb[key] == ""
+			climb[key] = "No #{key} available."
+		end
 	end
 
 	@@all << climb
