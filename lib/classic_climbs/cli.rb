@@ -1,3 +1,6 @@
+# refactoring options
+# 1. ClassicClimbs::Climb.reset if you want to do a recrawl
+# 2. to change url if you need to someday, put variable in environment.rb
 class ClassicClimbs::CLI
 
 def call
@@ -9,39 +12,34 @@ def call
 	self.menu
 end
 
+
+# takes a while, ~60 seconds
+# $list_climbs
+# 1.Tachycardia - 5.9
+# 2.Playin' Hooky - 5.9
 def list_climbs
-	# puts("list of climbs go here")
-	# how to avoid crawling to create @list again if it's been crawled?
+	sporturl = "https://www.mountainproject.com/area/classics?type=sport"
 	@list = ClassicClimbs::Climb.all
 	if @list.empty? == true
-	# ClassicClimbs::Climb.reset
-	sporturl = "https://www.mountainproject.com/area/classics?type=sport"
-	# change url if you need to someday
 	ClassicClimbs::Scraper.scrape_sportclimbs(sporturl)
 	ClassicClimbs::Climb.create_climb(ClassicClimbs::Scraper.all)
 	@list.each.with_index(1) do |item, index|
 		puts("#{index}. #{item.name} - #{item.grade}")
 	end
 	else
+		# avoid crawling again if it's been crawled the first time
 		@list.each.with_index(1) do |item, index|
 		puts("#{index}. #{item.name} - #{item.grade}")
-		# don't crawl again and take forever
 	end
 end
 	self.sub_menu
-	
-	# input = nil
-	# if input.to_i > 0
 	end
 
 def sub_menu
 	puts "\n"
 	puts "------------------------------Climbs Sub-Menu-----------------------------"
 	puts "Type the climb # you want to learn more about, e.g. '5'."
-
-	# puts "Type 'random' if you want a random climb"
-
-	puts "Type 'grade' if you want to see climbs by grade"
+	# puts "Type 'grade' if you want to see climbs by grade"
 	puts "--------------------------------------------------------------------------"
 end
 
@@ -55,15 +53,12 @@ def main_menu
 end
 
 
-
 def menu
 	input = nil
 	
 	while input != "exit"
-		self.main_menu	
-
+		self.main_menu
 		input = gets.strip.chomp.downcase
-		# 
 		if input == "list"
 			list_climbs
 		elsif input.to_i > 0 && input.to_i < ClassicClimbs::Climb.all.length
@@ -76,18 +71,19 @@ def menu
 		else
 			puts "Sorry, not a valid entry"
 		end
-
-		# case input
-		# when "list"
-		# 	list_climbs
-		# when "exit"
-		# 	puts "Goodbye. Happy climbing!"
-		# else
-		# 	puts "not valid entry"
-		# end
 	end
 end
 
+
+# $print_climb(climb)
+# Name:     Namaste
+# Grade:    5.11d
+# Type:     Sport, 140 ft
+# URL:      https://www.mountainproject.com/route/105717892/namaste
+
+# ---------------Description--------------
+
+# If you've seen images of this, you need to hike in and climb it. It is one of the coolest desert sport routes I've done.  Most of the holds are big and none of the moves are hard, but by the end, you're getting pumped. I think there might be a kneebar somewhere around mid-height to shake out. Getting down from Huecos Rancheros and Namaste is a little tricky if you are leading and cleaning since you need two ropes and the routes are very steep.
 def print_climb(climb)
 	puts ""
     puts "Name:     #{climb.name}"

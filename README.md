@@ -1,8 +1,6 @@
-# ClassicClimbs
+# Classic Climbs CLI Gem
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/classic_climbs`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A ruby gem that scrapes Mountain Project's list of classic climbs and lets you view their details in a CLI.
 
 ## Installation
 
@@ -22,7 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+run `ruby bin/classic_climbs` or `./classic_climbs` to interact with the CLI.
+
 
 ## Development
 
